@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useToast } from "@chakra-ui/react";
+import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
@@ -18,29 +19,35 @@ const Register = () => {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
 
-  // Form submit
-  const submitHandler = async (values) => {
-    try {
-      setLoading(true);
-      await axios.post("api/v1/users/register", values);
-      toast({
-        title: "Registration Successful",
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-      });
-      setLoading(false);
-      navigate("/login");
-    } catch (error) {
-      setLoading(false);
-      toast({
-        title: "Something went wrong",
-        status: "error",
-        duration: 9000,
-        isClosable: true,
-      });
-    }
-  };
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+    onSubmit: async (values) => {
+      try {
+        setLoading(true);
+        await axios.post("api/v1/users/register", values);
+        toast({
+          title: "Registration Successful",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+        setLoading(false);
+        navigate("/login");
+      } catch (error) {
+        setLoading(false);
+        toast({
+          title: "Something went wrong",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+    },
+  });
 
   // Prevent for logged-in user
   useEffect(() => {
@@ -53,21 +60,19 @@ const Register = () => {
     <Box className="register-page" p={5}>
       {loading && <Spinner thickness="4px" size="md" color="black" />}
       <Box width="400px" p="4">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const values = Object.fromEntries(formData.entries());
-            submitHandler(values);
-          }}
-        >
+        <form onSubmit={formik.handleSubmit}>
           <VStack spacing={4} align="flex-center">
             <Heading as="h4" size="md">
               Register Form
             </Heading>
             <FormControl>
               <FormLabel>Name</FormLabel>
-              <Input name="name" placeholder="Enter your full name..." />
+              <Input
+                name="name"
+                placeholder="Enter your full name..."
+                value={formik.values.name}
+                onChange={formik.handleChange}
+              />
             </FormControl>
             <FormControl>
               <FormLabel>Email</FormLabel>
@@ -75,6 +80,8 @@ const Register = () => {
                 type="email"
                 name="email"
                 placeholder="Enter your email address..."
+                value={formik.values.email}
+                onChange={formik.handleChange}
               />
             </FormControl>
             <FormControl>
@@ -83,6 +90,8 @@ const Register = () => {
                 type="password"
                 name="password"
                 placeholder="Enter your password..."
+                value={formik.values.password}
+                onChange={formik.handleChange}
               />
             </FormControl>
             <Button type="submit" colorScheme="blue" width="full">
