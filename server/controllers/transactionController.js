@@ -1,5 +1,6 @@
 const transactionModel = require("../models/transactionModel");
 const moment = require("moment");
+
 const getAllTransaction = async (req, res) => {
   try {
     const { frequency, type } = req.body;

@@ -8,15 +8,19 @@ import {
   Text,
   useColorModeValue,
   useToast,
-  Stack,
   IconButton,
   useDisclosure,
-  Collapse,
   Icon,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  DrawerFooter,
 } from "@chakra-ui/react";
 
 import { GiHamburgerMenu } from "react-icons/gi";
-import { RiCloseLargeFill } from "react-icons/ri";
 import { FaWallet } from "react-icons/fa6";
 
 const Header = () => {
@@ -25,7 +29,7 @@ const Header = () => {
   const toast = useToast();
   const bg = useColorModeValue("purple.500", "purple.900");
   const color = useColorModeValue("white", "gray.100");
-  const { isOpen, onToggle } = useDisclosure();
+  const { isOpen, onClose, onToggle } = useDisclosure();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -77,33 +81,31 @@ const Header = () => {
           size="md"
           backgroundColor="white"
           color="black"
-          icon={
-            isOpen ? (
-              <Icon as={RiCloseLargeFill} />
-            ) : (
-              <Icon as={GiHamburgerMenu} />
-            )
-          }
+          icon={<Icon as={GiHamburgerMenu} />}
           aria-label="Open Menu"
           display={{ md: "none" }}
           onClick={onToggle}
         />
       </Flex>
 
-      <Collapse in={isOpen} animateOpacity>
-        <Box pb={4} display={{ md: "none" }}>
-          <Stack as={"nav"} spacing={4}>
+      <Drawer placement="right" isOpen={isOpen} onClose={onClose}>
+        <DrawerOverlay />
+        <DrawerContent bg={bg}>
+          <DrawerCloseButton bg="white" mt={2} />
+          <DrawerHeader color={color}>
             {loginUser && (
-              <Text>
+              <Text color="white">
                 <strong>Welcome</strong> {loginUser.name}
               </Text>
             )}
+          </DrawerHeader>
+          <DrawerBody>
             <Button colorScheme="red" onClick={logoutHandler}>
               Logout
             </Button>
-          </Stack>
-        </Box>
-      </Collapse>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </Box>
   );
 };
