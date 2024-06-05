@@ -15,19 +15,25 @@ import {
   VStack,
   useToast,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { useFormik } from "formik";
 import moment from "moment";
 import * as Yup from "yup";
+import {
+  useAddTransactionMutation,
+  useEditTransactionMutation,
+} from "../redux/apiSlice";
 
 const TransactionModal = ({
   showModal,
   setShowModal,
   editable,
   setEditable,
-  setLoading,
 }) => {
   const toast = useToast();
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const [editTransaction] = useEditTransactionMutation();
+  const [addTransaction] = useAddTransactionMutation();
 
   const validationSchema = Yup.object({
     amount: Yup.number().required("Amount is required"),
@@ -50,16 +56,15 @@ const TransactionModal = ({
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        const user = JSON.parse(localStorage.getItem("user"));
-        setLoading(true);
+        console.log(user);
         if (editable) {
-          await axios.post("api/v1/transactions/edit-transaction", {
+          await editTransaction({
             payload: {
               ...values,
               userId: user._id,
             },
             transactionId: editable._id,
-          });
+          }).unwrap();
           toast({
             title: "Transaction updated successfully",
             status: "success",
@@ -67,10 +72,10 @@ const TransactionModal = ({
             isClosable: true,
           });
         } else {
-          await axios.post("api/v1/transactions/add-transaction", {
+          await addTransaction({
             ...values,
             userid: user._id,
-          });
+          }).unwrap();
           toast({
             title: "Transaction added successfully",
             status: "success",
@@ -80,9 +85,8 @@ const TransactionModal = ({
         }
         setShowModal(false);
         setEditable(null);
-        setLoading(false);
       } catch (error) {
-        setLoading(false);
+        console.log(error);
         toast({
           title: "Error adding transaction.",
           description: error.message,

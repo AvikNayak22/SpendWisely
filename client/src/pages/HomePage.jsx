@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
 
 import Layout from "../components/Layout/Layout";
 import Analytics from "../components/Analytics";
@@ -19,50 +18,33 @@ import {
 } from "@chakra-ui/react";
 
 import { BsTable, BsBarChartFill } from "react-icons/bs";
+import {
+  useDeleteTransactionMutation,
+  useGetTransactionsQuery,
+} from "../redux/apiSlice";
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [allTransaction, setAllTransaction] = useState([]);
   const [frequency, setFrequency] = useState("7");
   const [type, setType] = useState("all");
   const [viewData, setViewData] = useState("table");
   const [editable, setEditable] = useState(null);
   const toast = useToast();
 
-  useEffect(() => {
-    const getAllTransaction = async () => {
-      try {
-        const user = JSON.parse(localStorage.getItem("user"));
-        setLoading(true);
-        const res = await axios.post("api/v1/transactions/get-transaction", {
-          userid: user._id,
-          frequency,
-          type,
-        });
-        setLoading(false);
-        setAllTransaction(res.data);
-      } catch (error) {
-        setLoading(false);
-        toast({
-          title: "Error fetching transactions.",
-          description: error.message,
-          status: "error",
-          duration: 9000,
-          isClosable: true,
-        });
-      }
-    };
-    getAllTransaction();
-  }, [frequency, type]);
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const { data: allTransaction = [], isLoading: loading } =
+    useGetTransactionsQuery({
+      userid: user._id,
+      frequency,
+      type,
+    });
+
+  const [deleteTransaction] = useDeleteTransactionMutation();
 
   const handleDelete = async (record) => {
     try {
-      setLoading(true);
-      await axios.post("api/v1/transactions/delete-transaction", {
-        transactionId: record._id,
-      });
-      setLoading(false);
+      await deleteTransaction(record._id).unwrap();
       toast({
         title: "Transaction Deleted",
         status: "success",
@@ -70,7 +52,6 @@ const HomePage = () => {
         isClosable: true,
       });
     } catch (error) {
-      setLoading(false);
       toast({
         title: "Error deleting transaction.",
         description: error.message,
@@ -167,7 +148,6 @@ const HomePage = () => {
         setShowModal={setShowModal}
         editable={editable}
         setEditable={setEditable}
-        setLoading={setLoading}
       />
     </Layout>
   );

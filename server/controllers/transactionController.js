@@ -22,7 +22,7 @@ const getAllTransaction = async (req, res) => {
     res.status(200).json(transaction);
   } catch (error) {
     console.log(error);
-    res.status(500).json(error);
+    res.status(500).send({ message: error.message });
   }
 };
 
@@ -30,10 +30,10 @@ const addTransaction = async (req, res) => {
   try {
     const newTransaction = new transactionModel(req.body);
     await newTransaction.save();
-    res.status(201).send("Transaction created");
+    res.status(201).json("Transaction created");
   } catch (error) {
     console.log(error);
-    res.status(500).json(error);
+    res.status(500).send({ message: error.message });
   }
 };
 
@@ -44,20 +44,20 @@ const editTransaction = async (req, res) => {
       req.body.payload
     );
 
-    res.status(200).send("Edit Successfully");
+    res.status(200).json("Edited Successfully");
   } catch (error) {
     console.log(error);
-    res.status(500).json(error);
+    res.status(500).send({ message: error.message });
   }
 };
 
 const deleteTransaction = async (req, res) => {
   try {
     await transactionModel.findOneAndDelete({ _id: req.body.transactionId });
-    res.status(200).send("Transaction Deleted!");
+    res.status(200).json("Transaction Deleted!");
   } catch (error) {
     console.log(error);
-    res.status(500).json(error);
+    res.status(500).send({ message: error.message });
   }
 };
 

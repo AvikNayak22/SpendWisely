@@ -15,9 +15,9 @@ import {
 import axios from "axios";
 
 const Register = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
-  const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -49,7 +49,6 @@ const Register = () => {
     },
   });
 
-  // Prevent for logged-in user
   useEffect(() => {
     if (localStorage.getItem("user")) {
       navigate("/");
