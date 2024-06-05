@@ -69,8 +69,8 @@ const HomePage = () => {
           <Spinner thickness="4px" size="md" color="black" />
         </Flex>
       )}
-      <Box p="4">
-        <Flex justifyContent="space-between">
+      <Box p="4" overflowX="scroll">
+        <Flex justifyContent="space-between" width={["660px", "100%"]}>
           <HStack spacing="24px">
             <Box id="frequency">
               <Select
@@ -123,6 +123,7 @@ const HomePage = () => {
           </HStack>
           <Button
             padding={4}
+            marginLeft={2}
             onClick={() => setShowModal(true)}
             colorScheme="blue"
           >
