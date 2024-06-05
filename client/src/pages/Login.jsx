@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
@@ -19,11 +20,19 @@ const Login = () => {
   const navigate = useNavigate();
   const toast = useToast();
 
+  const validationSchema = Yup.object({
+    email: Yup.string().required("Email is required"),
+    password: Yup.number()
+      .required("Password is required")
+      .min(4, "Password must be at least 4 characters"),
+  });
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
+    validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
         setLoading(true);
@@ -67,7 +76,10 @@ const Login = () => {
             <Heading as="h4" size="md">
               Login Form
             </Heading>
-            <FormControl>
+            <FormControl
+              id="email"
+              isInvalid={formik.errors.email && formik.touched.email}
+            >
               <FormLabel>Email</FormLabel>
               <Input
                 type="email"
@@ -76,8 +88,14 @@ const Login = () => {
                 value={formik.values.email}
                 onChange={formik.handleChange}
               />
+              {formik.errors.email && formik.touched.email ? (
+                <div>{formik.errors.email}</div>
+              ) : null}
             </FormControl>
-            <FormControl>
+            <FormControl
+              id="password"
+              isInvalid={formik.errors.password && formik.touched.password}
+            >
               <FormLabel>Password</FormLabel>
               <Input
                 type="password"
@@ -86,6 +104,9 @@ const Login = () => {
                 value={formik.values.password}
                 onChange={formik.handleChange}
               />
+              {formik.errors.password && formik.touched.password ? (
+                <div>{formik.errors.password}</div>
+              ) : null}
             </FormControl>
             <Button type="submit" colorScheme="blue" width="full">
               Login

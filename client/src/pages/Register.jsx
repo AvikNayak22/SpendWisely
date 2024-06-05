@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useToast } from "@chakra-ui/react";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
@@ -11,6 +11,7 @@ import {
   Spinner,
   Heading,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 
@@ -19,12 +20,21 @@ const Register = () => {
   const navigate = useNavigate();
   const toast = useToast();
 
+  const validationSchema = Yup.object({
+    name: Yup.string().required("Name is required"),
+    email: Yup.string().required("Email is required"),
+    password: Yup.number()
+      .required("Password is required")
+      .min(4, "Password must be at least 4 characters"),
+  });
+
   const formik = useFormik({
     initialValues: {
       name: "",
       email: "",
       password: "",
     },
+    validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
         setLoading(true);
@@ -64,7 +74,10 @@ const Register = () => {
             <Heading as="h4" size="md">
               Register Form
             </Heading>
-            <FormControl>
+            <FormControl
+              id="name"
+              isInvalid={formik.errors.name && formik.touched.name}
+            >
               <FormLabel>Name</FormLabel>
               <Input
                 name="name"
@@ -72,8 +85,14 @@ const Register = () => {
                 value={formik.values.name}
                 onChange={formik.handleChange}
               />
+              {formik.errors.name && formik.touched.name ? (
+                <div>{formik.errors.name}</div>
+              ) : null}
             </FormControl>
-            <FormControl>
+            <FormControl
+              id="email"
+              isInvalid={formik.errors.email && formik.touched.email}
+            >
               <FormLabel>Email</FormLabel>
               <Input
                 type="email"
@@ -82,8 +101,14 @@ const Register = () => {
                 value={formik.values.email}
                 onChange={formik.handleChange}
               />
+              {formik.errors.email && formik.touched.email ? (
+                <div>{formik.errors.email}</div>
+              ) : null}
             </FormControl>
-            <FormControl>
+            <FormControl
+              id="password"
+              isInvalid={formik.errors.password && formik.touched.password}
+            >
               <FormLabel>Password</FormLabel>
               <Input
                 type="password"
@@ -92,6 +117,9 @@ const Register = () => {
                 value={formik.values.password}
                 onChange={formik.handleChange}
               />
+              {formik.errors.password && formik.touched.password ? (
+                <div>{formik.errors.password}</div>
+              ) : null}
             </FormControl>
             <Button type="submit" colorScheme="blue" width="full">
               Register

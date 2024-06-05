@@ -16,20 +16,13 @@
   height: 100vh;
 }
 
-.register-page Form {
-  background-color: #ffffff;
-  padding: 30px 20px;
-  width: 400px;
-  height: 450px;
-  border-radius: 15px;
-  box-shadow: 3px 5px 6px rgba(0, 0, 0, 0.1);
-}
-
+.register-page Form,
 .login-page Form {
   background-color: #ffffff;
-  padding: 20px;
-  width: 350px;
-  height: 350px;
+  padding: 30px 20px;
+  width: auto;
+  height: auto;
+  margin-inline: 8px;
   border-radius: 15px;
   box-shadow: 3px 5px 6px rgba(0, 0, 0, 0.1);
 }
