@@ -24,7 +24,7 @@
   height: auto;
   margin-inline: 8px;
   border-radius: 15px;
-  box-shadow: 3px 5px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .register-page Form Input,

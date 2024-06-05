@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,12 +13,12 @@ import {
   VStack,
   useToast,
 } from "@chakra-ui/react";
-import axios from "axios";
+import { useRegisterUserMutation } from "../redux/apiSlice";
 
 const Register = () => {
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
+  const [registerUser, { isLoading }] = useRegisterUserMutation();
 
   const validationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
@@ -37,18 +37,15 @@ const Register = () => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        setLoading(true);
-        await axios.post("api/v1/users/register", values);
+        await registerUser(values).unwrap();
         toast({
           title: "Registration Successful",
           status: "success",
           duration: 9000,
           isClosable: true,
         });
-        setLoading(false);
         navigate("/login");
       } catch (error) {
-        setLoading(false);
         toast({
           title: "Something went wrong",
           status: "error",
@@ -67,7 +64,7 @@ const Register = () => {
 
   return (
     <Box className="register-page" p={5}>
-      {loading && <Spinner thickness="4px" size="md" color="black" />}
+      {isLoading && <Spinner thickness="4px" size="md" color="black" />}
       <Box width="400px" p="4">
         <form onSubmit={formik.handleSubmit}>
           <VStack spacing={4} align="flex-center">

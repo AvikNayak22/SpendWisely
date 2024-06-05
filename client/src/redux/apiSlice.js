@@ -37,6 +37,20 @@ export const transactionsApi = createApi({
       }),
       invalidatesTags: ["Transactions"],
     }),
+    loginUser: builder.mutation({
+      query: (credentials) => ({
+        url: "users/login",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
+    registerUser: builder.mutation({
+      query: (credentials) => ({
+        url: "users/register",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
   }),
 });
 
@@ -45,4 +59,6 @@ export const {
   useDeleteTransactionMutation,
   useEditTransactionMutation,
   useAddTransactionMutation,
+  useLoginUserMutation,
+  useRegisterUserMutation,
 } = transactionsApi;

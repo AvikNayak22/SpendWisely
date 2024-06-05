@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import {
   Box,
   Button,
@@ -14,9 +13,10 @@ import {
   useToast,
   Heading,
 } from "@chakra-ui/react";
+import { useLoginUserMutation } from "../redux/apiSlice";
 
 const Login = () => {
-  const [loading, setLoading] = useState(false);
+  const [loginUser, { isLoading }] = useLoginUserMutation();
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -35,9 +35,7 @@ const Login = () => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        setLoading(true);
-        const { data } = await axios.post("api/v1/users/login", values);
-        setLoading(false);
+        const data = await loginUser(values).unwrap();
         toast({
           title: "Login success.",
           status: "success",
@@ -50,7 +48,6 @@ const Login = () => {
         );
         navigate("/");
       } catch (error) {
-        setLoading(false);
         toast({
           title: "Something went wrong.",
           status: "error",
@@ -69,7 +66,7 @@ const Login = () => {
 
   return (
     <Box className="login-page" p={5}>
-      {loading && <Spinner thickness="4px" size="md" color="black" />}
+      {isLoading && <Spinner thickness="4px" size="md" color="black" />}
       <Box width="400px" p="4">
         <form onSubmit={formik.handleSubmit}>
           <VStack spacing={4} align="flex-center">
