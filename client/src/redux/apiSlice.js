@@ -2,7 +2,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const transactionsApi = createApi({
   reducerPath: "transactionsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "/api/v1/" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://spendwisely-i35h.onrender.com/api/v1/",
+  }),
   credentials: "include",
   tagTypes: ["Transactions"],
   endpoints: (builder) => ({
