@@ -52,6 +52,12 @@ export const transactionsApi = createApi({
         body: credentials,
       }),
     }),
+    logoutUser: builder.mutation({
+      query: () => ({
+        url: "users/logout",
+        method: "POST",
+      }),
+    }),
   }),
 });
 
@@ -62,4 +68,5 @@ export const {
   useAddTransactionMutation,
   useLoginUserMutation,
   useRegisterUserMutation,
+  useLogoutUserMutation,
 } = transactionsApi;

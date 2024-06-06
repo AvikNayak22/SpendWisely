@@ -21,6 +21,7 @@ import {
 
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaWallet } from "react-icons/fa6";
+import { useLogoutUserMutation } from "../../redux/apiSlice";
 
 const Header = () => {
   const [loginUser, setLoginUser] = useState("");
@@ -30,6 +31,8 @@ const Header = () => {
   const color = useColorModeValue("white", "gray.100");
   const { isOpen, onClose, onToggle } = useDisclosure();
 
+  const [logoutUser] = useLogoutUserMutation();
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
@@ -37,7 +40,8 @@ const Header = () => {
     }
   }, []);
 
-  const logoutHandler = () => {
+  const logoutHandler = async () => {
+    await logoutUser().unwrap();
     localStorage.removeItem("user");
     toast({
       title: "Logout Successful",

@@ -2,7 +2,6 @@ const userModel = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-// login callback
 const loginController = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -48,7 +47,6 @@ const loginController = async (req, res) => {
   }
 };
 
-//Register Callback
 const registerController = async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -78,4 +76,18 @@ const registerController = async (req, res) => {
   }
 };
 
-module.exports = { loginController, registerController };
+const logoutController = async (req, res) => {
+  try {
+    res.clearCookie("token");
+    return res
+      .status(200)
+      .json({ success: true, message: "Logged out successfully!" });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error,
+    });
+  }
+};
+
+module.exports = { loginController, registerController, logoutController };
