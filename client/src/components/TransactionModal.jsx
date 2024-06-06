@@ -56,12 +56,11 @@ const TransactionModal = ({
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        console.log(user);
         if (editable) {
           await editTransaction({
             payload: {
               ...values,
-              userId: user._id,
+              userid: user.userid,
             },
             transactionId: editable._id,
           }).unwrap();
@@ -74,7 +73,7 @@ const TransactionModal = ({
         } else {
           await addTransaction({
             ...values,
-            userid: user._id,
+            userid: user.userid,
           }).unwrap();
           toast({
             title: "Transaction added successfully",

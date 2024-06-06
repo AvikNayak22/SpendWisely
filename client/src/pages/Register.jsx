@@ -47,7 +47,7 @@ const Register = () => {
         navigate("/login");
       } catch (error) {
         toast({
-          title: "Something went wrong",
+          title: error.data.message,
           status: "error",
           duration: 9000,
           isClosable: true,

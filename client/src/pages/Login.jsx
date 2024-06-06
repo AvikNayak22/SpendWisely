@@ -35,21 +35,18 @@ const Login = () => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        const data = await loginUser(values).unwrap();
+        const { userid, name } = await loginUser(values).unwrap();
         toast({
           title: "Login success.",
           status: "success",
           duration: 9000,
           isClosable: true,
         });
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ ...data.user, password: "" })
-        );
+        localStorage.setItem("user", JSON.stringify({ userid, name }));
         navigate("/");
       } catch (error) {
         toast({
-          title: "Something went wrong.",
+          title: error.data.message,
           status: "error",
           duration: 9000,
           isClosable: true,

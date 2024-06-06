@@ -17,7 +17,6 @@ import {
   DrawerCloseButton,
   DrawerHeader,
   DrawerBody,
-  DrawerFooter,
 } from "@chakra-ui/react";
 
 import { GiHamburgerMenu } from "react-icons/gi";

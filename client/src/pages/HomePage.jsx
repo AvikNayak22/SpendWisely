@@ -35,7 +35,7 @@ const HomePage = () => {
 
   const { data: allTransaction = [], isLoading: loading } =
     useGetTransactionsQuery({
-      userid: user._id,
+      userid: user.userid,
       frequency,
       type,
     });
