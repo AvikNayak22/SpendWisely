@@ -5,5 +5,14 @@ import viteCompression from "vite-plugin-compression";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), viteCompression()],
-  base: "https://spendwisely-i35h.onrender.com",
+  server: {
+    proxy: {
+      "/api/v1": {
+        // target: "http://localhost:8080",  for running locally
+        target: "https://spendwisely-i35h.onrender.com",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 });
