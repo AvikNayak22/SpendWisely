@@ -9,19 +9,16 @@ import {
   Spinner,
   Box,
   Button,
-  Select,
   useToast,
-  IconButton,
-  HStack,
   Flex,
   Divider,
 } from "@chakra-ui/react";
 
-import { BsTable, BsBarChartFill } from "react-icons/bs";
 import {
   useDeleteTransactionMutation,
   useGetTransactionsQuery,
 } from "../redux/apiSlice";
+import Filters from "../components/Filters";
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -71,56 +68,14 @@ const HomePage = () => {
       )}
       <Box p="4" overflowX="scroll">
         <Flex justifyContent="space-between" width={["660px", "100%"]}>
-          <HStack spacing="24px">
-            <Box id="frequency">
-              <Select
-                value={frequency}
-                onChange={(e) => setFrequency(e.target.value)}
-              >
-                <option value="7" disabled hidden>
-                  Select Frequency
-                </option>
-                <option value="7">Last 1 Week</option>
-                <option value="30">Last 1 Month</option>
-                <option value="180">Last 6 Month</option>
-                <option value="365">Last 1 Year</option>
-              </Select>
-            </Box>
-            <Box id="type">
-              <Select value={type} onChange={(e) => setType(e.target.value)}>
-                <option value="all" disabled hidden>
-                  {" "}
-                  Select Type
-                </option>
-                <option value="all">All</option>
-                <option value="income">Income</option>
-                <option value="expense">Expense</option>
-              </Select>
-            </Box>
-            <HStack
-              spacing="10px"
-              border="1px solid"
-              borderColor="#CBD5E0"
-              borderRadius={4}
-            >
-              <IconButton
-                icon={<BsTable />}
-                aria-label="Table View"
-                onClick={() => setViewData("table")}
-                color={viewData === "table" ? "blue" : "gray"}
-                backgroundColor="transparent"
-                _hover={{ backgroundColor: "transparent" }}
-              />
-              <IconButton
-                icon={<BsBarChartFill />}
-                aria-label="Analytics View"
-                onClick={() => setViewData("analytics")}
-                color={viewData === "analytics" ? "blue" : "gray"}
-                backgroundColor="transparent"
-                _hover={{ backgroundColor: "transparent" }}
-              />
-            </HStack>
-          </HStack>
+          <Filters
+            frequency={frequency}
+            setFrequency={setFrequency}
+            type={type}
+            setType={setType}
+            viewData={viewData}
+            setViewData={setViewData}
+          />
           <Button
             padding={4}
             marginLeft={2}
