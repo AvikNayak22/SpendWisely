@@ -9,6 +9,7 @@ import {
   Thead,
   Tr,
   Box,
+  Badge,
 } from "@chakra-ui/react";
 
 import { MdDelete, MdModeEdit } from "react-icons/md";
@@ -34,9 +35,11 @@ const TableData = ({
         <Thead>
           <Tr>
             {columns.map((col) => (
-              <Th key={col.title}>{col.title}</Th>
+              <Th fontSize="0.9em" key={col.title}>
+                {col.title}
+              </Th>
             ))}
-            <Th>Actions</Th>
+            <Th fontSize="0.9em">Actions</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -44,7 +47,19 @@ const TableData = ({
             <Tr key={record._id}>
               <Td>{moment(record.date).format("YYYY-MM-DD")}</Td>
               <Td>{record.amount}</Td>
-              <Td>{record.type}</Td>
+              <Td>
+                {" "}
+                <Badge
+                  ml="1"
+                  fontSize="0.8em"
+                  px={2}
+                  py={1}
+                  colorScheme={record.type === "expense" ? "red" : "green"}
+                  borderRadius="5px"
+                >
+                  {record.type}
+                </Badge>
+              </Td>
               <Td>{record.category}</Td>
               <Td>{record.reference}</Td>
               <Td>
