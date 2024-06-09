@@ -19,14 +19,17 @@ import {
   useGetTransactionsQuery,
 } from "../redux/apiSlice";
 import Filters from "../components/Filters";
+import Pagination from "../components/Pagination";
 
 const HomePage = () => {
+  const toast = useToast();
   const [showModal, setShowModal] = useState(false);
   const [frequency, setFrequency] = useState("7");
   const [type, setType] = useState("all");
   const [viewData, setViewData] = useState("table");
   const [editable, setEditable] = useState(null);
-  const toast = useToast();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -36,6 +39,12 @@ const HomePage = () => {
       frequency,
       type,
     });
+
+  const totalPages = Math.ceil(allTransaction.length / itemsPerPage);
+  const currentTransactions = allTransaction.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const [deleteTransaction] = useDeleteTransactionMutation();
 
@@ -88,12 +97,20 @@ const HomePage = () => {
         <Divider />
         <Box mt="4">
           {viewData === "table" ? (
-            <TableData
-              allTransaction={allTransaction}
-              setEditable={setEditable}
-              setShowModal={setShowModal}
-              handleDelete={handleDelete}
-            />
+            <>
+              <TableData
+                allTransaction={allTransaction}
+                setEditable={setEditable}
+                setShowModal={setShowModal}
+                handleDelete={handleDelete}
+                currentTransactions={currentTransactions}
+              />
+              <Pagination
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                totalPages={totalPages}
+              />
+            </>
           ) : (
             <Analytics allTransaction={allTransaction} />
           )}

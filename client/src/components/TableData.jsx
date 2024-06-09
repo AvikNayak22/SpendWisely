@@ -8,6 +8,7 @@ import {
   Th,
   Thead,
   Tr,
+  Box,
 } from "@chakra-ui/react";
 
 import { MdDelete, MdModeEdit } from "react-icons/md";
@@ -22,52 +23,54 @@ const columns = [
 ];
 
 const TableData = ({
-  allTransaction,
   setEditable,
   setShowModal,
   handleDelete,
+  currentTransactions,
 }) => {
   return (
-    <Table variant="simple">
-      <Thead>
-        <Tr>
-          {columns.map((col) => (
-            <Th key={col.title}>{col.title}</Th>
-          ))}
-          <Th>Actions</Th>
-        </Tr>
-      </Thead>
-      <Tbody>
-        {allTransaction.map((record) => (
-          <Tr key={record._id}>
-            <Td>{moment(record.date).format("YYYY-MM-DD")}</Td>
-            <Td>{record.amount}</Td>
-            <Td>{record.type}</Td>
-            <Td>{record.category}</Td>
-            <Td>{record.reference}</Td>
-            <Td>
-              <HStack spacing="12px">
-                <IconButton
-                  icon={<MdModeEdit />}
-                  onClick={() => {
-                    setEditable(record);
-                    setShowModal(true);
-                  }}
-                  colorScheme="blue"
-                  color="white"
-                />
-                <IconButton
-                  icon={<MdDelete />}
-                  onClick={() => handleDelete(record)}
-                  colorScheme="red"
-                  color="white"
-                />
-              </HStack>
-            </Td>
+    <Box>
+      <Table variant="simple">
+        <Thead>
+          <Tr>
+            {columns.map((col) => (
+              <Th key={col.title}>{col.title}</Th>
+            ))}
+            <Th>Actions</Th>
           </Tr>
-        ))}
-      </Tbody>
-    </Table>
+        </Thead>
+        <Tbody>
+          {currentTransactions.map((record) => (
+            <Tr key={record._id}>
+              <Td>{moment(record.date).format("YYYY-MM-DD")}</Td>
+              <Td>{record.amount}</Td>
+              <Td>{record.type}</Td>
+              <Td>{record.category}</Td>
+              <Td>{record.reference}</Td>
+              <Td>
+                <HStack spacing="12px">
+                  <IconButton
+                    icon={<MdModeEdit />}
+                    onClick={() => {
+                      setEditable(record);
+                      setShowModal(true);
+                    }}
+                    colorScheme="blue"
+                    color="white"
+                  />
+                  <IconButton
+                    icon={<MdDelete />}
+                    onClick={() => handleDelete(record)}
+                    colorScheme="red"
+                    color="white"
+                  />
+                </HStack>
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    </Box>
   );
 };
 
