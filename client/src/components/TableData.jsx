@@ -30,8 +30,8 @@ const TableData = ({
   currentTransactions,
 }) => {
   return (
-    <Box>
-      <Table variant="simple">
+    <Box overflowX={{ base: "auto", md: "visible" }}>
+      <Table variant="simple" w={{ base: "max-content", md: "100%" }}>
         <Thead>
           <Tr>
             {columns.map((col) => (

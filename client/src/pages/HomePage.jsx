@@ -1,9 +1,15 @@
 import { useState } from "react";
+import {
+  useDeleteTransactionMutation,
+  useGetTransactionsQuery,
+} from "../redux/apiSlice";
 
 import Layout from "../components/Layout/Layout";
 import Analytics from "../components/Analytics";
+import Filters from "../components/Filters";
 import TableData from "../components/TableData";
 import TransactionModal from "../components/TransactionModal";
+import Pagination from "../components/Pagination";
 
 import {
   Spinner,
@@ -13,13 +19,6 @@ import {
   Flex,
   Divider,
 } from "@chakra-ui/react";
-
-import {
-  useDeleteTransactionMutation,
-  useGetTransactionsQuery,
-} from "../redux/apiSlice";
-import Filters from "../components/Filters";
-import Pagination from "../components/Pagination";
 
 const HomePage = () => {
   const toast = useToast();
@@ -75,25 +74,31 @@ const HomePage = () => {
           <Spinner thickness="4px" size="md" color="black" />
         </Flex>
       )}
-      <Box p="4" overflowX="scroll">
-        <Flex justifyContent="space-between" width={["660px", "100%"]}>
-          <Filters
-            frequency={frequency}
-            setFrequency={setFrequency}
-            type={type}
-            setType={setType}
-            viewData={viewData}
-            setViewData={setViewData}
-          />
-          <Button
-            padding={4}
-            marginLeft={2}
-            onClick={() => setShowModal(true)}
-            colorScheme="blue"
+      <Box p="4">
+        <Box overflowX={{ base: "auto", md: "visible" }}>
+          <Flex
+            w={{ base: "max-content", md: "auto" }}
+            justifyContent="space-between"
           >
-            Add New
-          </Button>
-        </Flex>
+            <Filters
+              frequency={frequency}
+              setFrequency={setFrequency}
+              type={type}
+              setType={setType}
+              viewData={viewData}
+              setViewData={setViewData}
+            />
+            <Button
+              ml={6}
+              padding={4}
+              onClick={() => setShowModal(true)}
+              colorScheme="blue"
+            >
+              Add New
+            </Button>
+          </Flex>
+        </Box>
+
         <Divider />
         <Box mt="4">
           {viewData === "table" ? (
