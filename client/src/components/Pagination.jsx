@@ -3,9 +3,9 @@ import { Box, Button, Flex, HStack } from "@chakra-ui/react";
 
 const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
   return (
-    <Box overflowX="auto">
-      <Flex justifyContent="center">
-        <HStack spacing="12px" mt="8" width="max-content">
+    <Box overflowX={{ base: "auto", md: "visible" }}>
+      <Flex justifyContent="center" w={{ base: "max-content", md: "100%" }}>
+        <HStack spacing="12px" mt="8">
           <Button
             onClick={() => setCurrentPage(1)}
             disabled={currentPage === 1}
