@@ -71,7 +71,7 @@ const Header = () => {
           justifyContent="center"
         >
           {loginUser && (
-            <Text mr={4} mt={4} textAlign="center">
+            <Text mr={4} textAlign="center">
               <strong>Welcome</strong> {loginUser.name}
             </Text>
           )}
