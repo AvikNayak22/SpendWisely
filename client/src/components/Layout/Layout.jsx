@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import { Box } from "@chakra-ui/react";
 import Header from "./Header";
 import Footer from "./Footer";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, validUser, setValidUser }) => {
   return (
     <Box
       as="main"
@@ -11,7 +12,7 @@ const Layout = ({ children }) => {
       flexDirection="column"
       minH="100vh"
     >
-      <Header />
+      <Header validUser={validUser} setValidUser={setValidUser} />
       <Box className="content" flexGrow={1} padding="4">
         {children}
       </Box>

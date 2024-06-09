@@ -28,9 +28,9 @@ const TransactionModal = ({
   setShowModal,
   editable,
   setEditable,
+  validUser,
 }) => {
   const toast = useToast();
-  const user = JSON.parse(localStorage.getItem("user"));
 
   const [editTransaction] = useEditTransactionMutation();
   const [addTransaction] = useAddTransactionMutation();
@@ -60,7 +60,7 @@ const TransactionModal = ({
           await editTransaction({
             payload: {
               ...values,
-              userid: user.userid,
+              userid: validUser._id,
             },
             transactionId: editable._id,
           }).unwrap();
@@ -73,7 +73,7 @@ const TransactionModal = ({
         } else {
           await addTransaction({
             ...values,
-            userid: user.userid,
+            userid: validUser._id,
           }).unwrap();
           toast({
             title: "Transaction added successfully",
@@ -85,7 +85,6 @@ const TransactionModal = ({
         setShowModal(false);
         setEditable(null);
       } catch (error) {
-        console.log(error);
         toast({
           title: "Error adding transaction.",
           description: error.message,

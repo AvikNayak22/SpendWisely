@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -15,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useLoginUserMutation } from "../redux/apiSlice";
 
-const Login = () => {
+const Login = ({ validUser, setValidUser }) => {
   const [loginUser, { isLoading }] = useLoginUserMutation();
   const navigate = useNavigate();
   const toast = useToast();
@@ -35,14 +36,14 @@ const Login = () => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        const { userid, name } = await loginUser(values).unwrap();
+        const { existingUser } = await loginUser(values).unwrap();
         toast({
           title: "Login success.",
           status: "success",
           duration: 9000,
           isClosable: true,
         });
-        localStorage.setItem("user", JSON.stringify({ userid, name }));
+        setValidUser(existingUser);
         navigate("/");
       } catch (error) {
         toast({
@@ -56,7 +57,7 @@ const Login = () => {
   });
 
   useEffect(() => {
-    if (localStorage.getItem("user")) {
+    if (validUser) {
       navigate("/");
     }
   }, [navigate]);

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import {
   useDeleteTransactionMutation,
@@ -20,7 +21,7 @@ import {
   Divider,
 } from "@chakra-ui/react";
 
-const HomePage = () => {
+const HomePage = ({ validUser, setValidUser }) => {
   const toast = useToast();
   const [showModal, setShowModal] = useState(false);
   const [frequency, setFrequency] = useState("7");
@@ -30,11 +31,9 @@ const HomePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  const user = JSON.parse(localStorage.getItem("user"));
-
   const { data: allTransaction = [], isLoading: loading } =
     useGetTransactionsQuery({
-      userid: user.userid,
+      userid: validUser._id,
       frequency,
       type,
     });
@@ -68,7 +67,7 @@ const HomePage = () => {
   };
 
   return (
-    <Layout>
+    <Layout validUser={validUser} setValidUser={setValidUser}>
       {loading && (
         <Flex justifyContent="center">
           <Spinner thickness="4px" size="md" color="black" />
@@ -126,6 +125,8 @@ const HomePage = () => {
         setShowModal={setShowModal}
         editable={editable}
         setEditable={setEditable}
+        validUser={validUser}
+        setValidUser={setValidUser}
       />
     </Layout>
   );

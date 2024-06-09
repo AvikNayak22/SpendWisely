@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+/* eslint-disable react/prop-types */
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import {
   Box,
@@ -23,8 +23,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { FaWallet } from "react-icons/fa6";
 import { useLogoutUserMutation } from "../../redux/apiSlice";
 
-const Header = () => {
-  const [loginUser, setLoginUser] = useState("");
+const Header = ({ validUser, setValidUser }) => {
   const navigate = useNavigate();
   const toast = useToast();
   const bg = useColorModeValue("purple.500", "purple.900");
@@ -33,16 +32,8 @@ const Header = () => {
 
   const [logoutUser] = useLogoutUserMutation();
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      setLoginUser(user);
-    }
-  }, []);
-
   const logoutHandler = async () => {
     await logoutUser().unwrap();
-    localStorage.removeItem("user");
     toast({
       title: "Logout Successful",
       description: "You have been logged out successfully.",
@@ -50,6 +41,7 @@ const Header = () => {
       duration: 3000,
       isClosable: true,
     });
+    setValidUser(null);
     navigate("/login");
   };
 
@@ -70,9 +62,9 @@ const Header = () => {
           alignItems="center"
           justifyContent="center"
         >
-          {loginUser && (
+          {validUser && (
             <Text mr={4} textAlign="center">
-              <strong>Welcome</strong> {loginUser.name}
+              <strong>Welcome</strong> {validUser.name}
             </Text>
           )}
           <Button colorScheme="red" onClick={logoutHandler}>
@@ -96,9 +88,9 @@ const Header = () => {
         <DrawerContent bg={bg}>
           <DrawerCloseButton bg="white" mt={2} />
           <DrawerHeader color={color}>
-            {loginUser && (
+            {validUser && (
               <Text color="white">
-                <strong>Welcome</strong> {loginUser.name}
+                <strong>Welcome</strong> {validUser.name}
               </Text>
             )}
           </DrawerHeader>

@@ -35,8 +35,7 @@ const loginController = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      userid: existingUser._id,
-      name: existingUser.name,
+      existingUser,
       jwtToken,
     });
   } catch (error) {

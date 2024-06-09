@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -15,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useRegisterUserMutation } from "../redux/apiSlice";
 
-const Register = () => {
+const Register = ({ validUser }) => {
   const navigate = useNavigate();
   const toast = useToast();
   const [registerUser, { isLoading }] = useRegisterUserMutation();
@@ -57,7 +58,7 @@ const Register = () => {
   });
 
   useEffect(() => {
-    if (localStorage.getItem("user")) {
+    if (validUser) {
       navigate("/");
     }
   }, [navigate]);
