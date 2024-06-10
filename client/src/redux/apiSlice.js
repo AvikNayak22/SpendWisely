@@ -3,7 +3,6 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const transactionsApi = createApi({
   reducerPath: "transactionsApi",
   baseQuery: fetchBaseQuery({
-    // baseUrl: "https://spendwisely-i35h.onrender.com/api/v1/",
     // baseUrl: "http://localhost:8080/api/v1/",
     baseUrl: "https://spend-wisely-bcsc.vercel.app/api/v1/",
   }),
