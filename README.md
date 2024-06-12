@@ -1,13 +1,13 @@
 # SpendWisely
 
-SpendWisely is an easy-to-use expense management application that helps users keep track of their spending and manage their finances effectively.
+SpendWisely is a full-stack financial management application that helps users track their expenses and incomes, analyze their spending habits, and manage their finances efficiently.
 
 ## Features
 
 - **User Authentication**: Easily register, login, and logout to securely access your account.
 - **Transaction Management**: Add, edit, and delete transactions with ease, including details like amount, type, category, reference, and date.
 - **Filtering and Sorting**: Filter and sort transactions based on date range, type, and category to quickly find the information you need.
-- **Analytics**: Visualize your spending patterns over time with simple graphs and charts, helping you understand where your money is going.
+- **Analytics**: Visualize your spending patterns over time with tabular data and charts, helping you understand where your money is going.
 - **Responsive Design**: Enjoy a seamless experience across devices, whether you're using a desktop, tablet, or smartphone.
 
 ## Demo
@@ -57,10 +57,12 @@ SpendWisely is an easy-to-use expense management application that helps users ke
    npm run server
    ```
 ## Usage
-- Register or log in to your account.
-- Add transactions by providing the necessary details.
-- View your transaction history and filter by date and type.
-- Access the analytics dashboard to gain insights into your income and expenses.
+- **Register:** Navigate to the registration page and create a new account.
+- **Login:** Use your credentials to log in.
+- **Add Transactions:** Add new income or expense transactions through the form.
+- **View Transactions:** View your transactions in a table or as analytical charts.
+- **Filter Data:** Use the filters to view transactions based on selected criteria.
+- **Manage Transactions:** Edit or delete existing transactions as needed.
 
 ## Contributor
 - AvikNayak22
