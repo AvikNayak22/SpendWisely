@@ -15,10 +15,12 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useRegisterUserMutation } from "../redux/apiSlice";
+import { useSelector } from "react-redux";
 
-const Register = ({ validUser }) => {
+const Register = () => {
   const navigate = useNavigate();
   const toast = useToast();
+  const validUser = useSelector((state) => state.authSlice.validUser);
   const [registerUser, { isLoading }] = useRegisterUserMutation();
 
   const validationSchema = Yup.object({

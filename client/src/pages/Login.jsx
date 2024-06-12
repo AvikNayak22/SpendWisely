@@ -1,8 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useEffect } from "react";
+import { useLoginUserMutation } from "../redux/apiSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setValidUser } from "../redux/authSlice";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -14,10 +17,11 @@ import {
   useToast,
   Heading,
 } from "@chakra-ui/react";
-import { useLoginUserMutation } from "../redux/apiSlice";
 
-const Login = ({ validUser, setValidUser }) => {
+const Login = () => {
   const [loginUser, { isLoading }] = useLoginUserMutation();
+  const validUser = useSelector((state) => state.authSlice.validUser);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -43,7 +47,7 @@ const Login = ({ validUser, setValidUser }) => {
           duration: 9000,
           isClosable: true,
         });
-        setValidUser(existingUser);
+        dispatch(setValidUser(existingUser));
         navigate("/");
       } catch (error) {
         toast({

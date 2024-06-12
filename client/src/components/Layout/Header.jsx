@@ -22,10 +22,14 @@ import {
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaWallet } from "react-icons/fa6";
 import { useLogoutUserMutation } from "../../redux/apiSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setValidUser } from "../../redux/authSlice";
 
-const Header = ({ validUser, setValidUser }) => {
+const Header = () => {
   const navigate = useNavigate();
   const toast = useToast();
+  const dispatch = useDispatch();
+  const validUser = useSelector((state) => state.authSlice.validUser);
   const bg = useColorModeValue("purple.500", "purple.900");
   const color = useColorModeValue("white", "gray.100");
   const { isOpen, onClose, onToggle } = useDisclosure();
@@ -41,7 +45,7 @@ const Header = ({ validUser, setValidUser }) => {
       duration: 3000,
       isClosable: true,
     });
-    setValidUser(null);
+    dispatch(setValidUser(null));
     navigate("/login");
   };
 

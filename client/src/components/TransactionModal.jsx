@@ -22,16 +22,16 @@ import {
   useAddTransactionMutation,
   useEditTransactionMutation,
 } from "../redux/apiSlice";
+import { useSelector } from "react-redux";
 
 const TransactionModal = ({
   showModal,
   setShowModal,
   editable,
   setEditable,
-  validUser,
 }) => {
   const toast = useToast();
-
+  const validUser = useSelector((state) => state.authSlice.validUser);
   const [editTransaction] = useEditTransactionMutation();
   const [addTransaction] = useAddTransactionMutation();
 

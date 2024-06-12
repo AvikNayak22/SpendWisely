@@ -3,7 +3,7 @@ import { Box } from "@chakra-ui/react";
 import Header from "./Header";
 import Footer from "./Footer";
 
-const Layout = ({ children, validUser, setValidUser }) => {
+const Layout = ({ children }) => {
   return (
     <Box
       as="main"
@@ -12,7 +12,7 @@ const Layout = ({ children, validUser, setValidUser }) => {
       flexDirection="column"
       minH="100vh"
     >
-      <Header validUser={validUser} setValidUser={setValidUser} />
+      <Header />
       <Box className="content" flexGrow={1} padding="4">
         {children}
       </Box>

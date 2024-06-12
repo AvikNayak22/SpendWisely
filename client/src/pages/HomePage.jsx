@@ -20,9 +20,11 @@ import {
   Flex,
   Divider,
 } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 
-const HomePage = ({ validUser, setValidUser }) => {
+const HomePage = () => {
   const toast = useToast();
+  const validUser = useSelector((state) => state.authSlice.validUser);
   const [showModal, setShowModal] = useState(false);
   const [frequency, setFrequency] = useState("7");
   const [type, setType] = useState("all");
@@ -67,7 +69,7 @@ const HomePage = ({ validUser, setValidUser }) => {
   };
 
   return (
-    <Layout validUser={validUser} setValidUser={setValidUser}>
+    <Layout>
       {loading && (
         <Flex justifyContent="center">
           <Spinner thickness="4px" size="md" color="black" />
@@ -125,8 +127,6 @@ const HomePage = ({ validUser, setValidUser }) => {
         setShowModal={setShowModal}
         editable={editable}
         setEditable={setEditable}
-        validUser={validUser}
-        setValidUser={setValidUser}
       />
     </Layout>
   );
