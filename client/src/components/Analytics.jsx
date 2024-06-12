@@ -1,13 +1,7 @@
 /* eslint-disable react/prop-types */
-import {
-  Box,
-  Text,
-  Progress,
-  Flex,
-  CircularProgress,
-  CircularProgressLabel,
-} from "@chakra-ui/react";
+import { Box, Text, Progress, Flex } from "@chakra-ui/react";
 import useTransactionStats from "../hooks/useTransactionStats";
+import CardTypeOne from "./CardTypeOne";
 
 const Analytics = ({ allTransaction }) => {
   const {
@@ -41,109 +35,29 @@ const Analytics = ({ allTransaction }) => {
         Website Analytics
       </Text>
       <Flex wrap="wrap" justifyContent="space-between">
-        <Box w="100%" maxW="300px" mb={4}>
-          <Text
-            fontSize="lg"
-            mb={2}
-            mx={2}
-            p={3}
-            color="blue.600"
-            backgroundColor="blue.100"
-            borderColor="blue.600"
-            borderRadius="md"
-            borderWidth="1px"
-          >
-            Total Transactions: {totalTransaction}
-          </Text>
-          <Box
-            backgroundColor="white"
-            p={4}
-            borderRadius="md"
-            borderWidth="1px"
-            mx={2}
-          >
-            <Flex justifyContent="center" mb={4} gap={4}>
-              <Text fontSize="lg" color="green.500">
-                Income: {totalIncomeTransactions.length}
-              </Text>
-              <Text fontSize="lg" color="red.500">
-                Expense: {totalExpenseTransactions.length}
-              </Text>
-            </Flex>
-            <Flex justifyContent="space-between">
-              <CircularProgress
-                size={110}
-                value={totalIncomePercent}
-                color="green.400"
-              >
-                <CircularProgressLabel>
-                  {totalIncomePercent.toFixed(0)}%
-                </CircularProgressLabel>
-              </CircularProgress>
-              <CircularProgress
-                size={110}
-                value={totalExpensePercent}
-                color="red.400"
-              >
-                <CircularProgressLabel>
-                  {totalExpensePercent.toFixed(0)}%
-                </CircularProgressLabel>
-              </CircularProgress>
-            </Flex>
-          </Box>
-        </Box>
-
-        <Box w="100%" maxW="300px" mb={4}>
-          <Text
-            fontSize="lg"
-            mb={2}
-            mx={2}
-            p={3}
-            color="purple.600"
-            backgroundColor="purple.100"
-            borderColor="purple.600"
-            borderRadius="md"
-            borderWidth="1px"
-          >
-            Total Turnover: {totalTurnover}
-          </Text>
-          <Box
-            backgroundColor="white"
-            p={4}
-            borderRadius="md"
-            borderWidth="1px"
-            mx={2}
-          >
-            <Flex justifyContent="center" mb={4} gap={4}>
-              <Text fontSize="lg" color="green.500">
-                Income: {totalIncomeTurnover}
-              </Text>
-              <Text fontSize="lg" color="red.500">
-                Expense: {totalExpenseTurnover}
-              </Text>
-            </Flex>
-            <Flex justifyContent="space-between" gap={4}>
-              <CircularProgress
-                value={totalIncomeTurnoverPercent}
-                color="green.400"
-                size={110}
-              >
-                <CircularProgressLabel>
-                  {totalIncomeTurnoverPercent.toFixed(0)}%
-                </CircularProgressLabel>
-              </CircularProgress>
-              <CircularProgress
-                value={totalExpenseTurnoverPercent}
-                color="red.400"
-                size={110}
-              >
-                <CircularProgressLabel>
-                  {totalExpenseTurnoverPercent.toFixed(0)}%
-                </CircularProgressLabel>
-              </CircularProgress>
-            </Flex>
-          </Box>
-        </Box>
+        <CardTypeOne
+          cardTitle={`Total Transactions: ${totalTransaction}`}
+          cardTitleColor={"blue"}
+          cardBodyColors={["green", "red"]}
+          cardInfo={[
+            `Income: ${totalIncomeTransactions.length}`,
+            `Expense: ${totalExpenseTransactions.length}`,
+          ]}
+          progressInfo={[totalIncomePercent, totalExpensePercent]}
+        ></CardTypeOne>
+        <CardTypeOne
+          cardTitle={`Total Turnover: ${totalTurnover}`}
+          cardTitleColor={"purple"}
+          cardBodyColors={["green", "red"]}
+          cardInfo={[
+            `Income: ${totalIncomeTurnover}`,
+            `Expense: ${totalExpenseTurnover}`,
+          ]}
+          progressInfo={[
+            totalIncomeTurnoverPercent,
+            totalExpenseTurnoverPercent,
+          ]}
+        ></CardTypeOne>
 
         <Box w="100%" maxW="300px" mb={4}>
           <Text
