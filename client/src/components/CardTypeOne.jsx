@@ -7,13 +7,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-const CardTypeOne = ({
-  cardTitle,
-  cardTitleColor,
-  cardBodyColors,
-  cardInfo,
-  progressInfo,
-}) => {
+const CardTypeOne = ({ cardTitle, cardTitleColor, cardInfo, progressInfo }) => {
   return (
     <Box w="100%" maxW="300px" mb={4}>
       <Text
@@ -37,10 +31,10 @@ const CardTypeOne = ({
         mx={2}
       >
         <Flex justifyContent="center" mb={4} gap={4}>
-          <Text fontSize="lg" color={`${cardBodyColors[0]}.500`}>
+          <Text fontSize="lg" color="green.500">
             {cardInfo[0]}
           </Text>
-          <Text fontSize="lg" color={`${cardBodyColors[1]}.500`}>
+          <Text fontSize="lg" color="red.500">
             {cardInfo[1]}
           </Text>
         </Flex>
@@ -48,17 +42,13 @@ const CardTypeOne = ({
           <CircularProgress
             size={110}
             value={progressInfo[0]}
-            color={`${cardBodyColors[0]}.400`}
+            color="green.400"
           >
             <CircularProgressLabel>
               {progressInfo[0].toFixed(0)}%
             </CircularProgressLabel>
           </CircularProgress>
-          <CircularProgress
-            size={110}
-            value={progressInfo[1]}
-            color={`${cardBodyColors[1]}.400`}
-          >
+          <CircularProgress size={110} value={progressInfo[1]} color="red.400">
             <CircularProgressLabel>
               {progressInfo[1].toFixed(0)}%
             </CircularProgressLabel>

@@ -80,6 +80,7 @@ const HomePage = () => {
           <Flex
             w={{ base: "max-content", md: "auto" }}
             justifyContent="space-between"
+            pb={3}
           >
             <Filters
               frequency={frequency}
