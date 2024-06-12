@@ -7,8 +7,22 @@ import {
   CircularProgress,
   CircularProgressLabel,
 } from "@chakra-ui/react";
+import useTransactionStats from "../hooks/useTransactionStats";
 
 const Analytics = ({ allTransaction }) => {
+  const {
+    totalTransaction,
+    totalIncomeTransactions,
+    totalIncomePercent,
+    totalExpenseTransactions,
+    totalExpensePercent,
+    totalTurnover,
+    totalIncomeTurnover,
+    totalExpenseTurnover,
+    totalIncomeTurnoverPercent,
+    totalExpenseTurnoverPercent,
+  } = useTransactionStats(allTransaction);
+
   //category
   const categories = [
     "salary",
@@ -20,36 +34,6 @@ const Analytics = ({ allTransaction }) => {
     "tax",
     "miscellaneous",
   ];
-
-  //total transactions
-  const totalTransaction = allTransaction.length;
-  const totalIncomeTransactions = allTransaction.filter(
-    (transaction) => transaction.type == "income"
-  );
-  const totalExpenseTransactions = allTransaction.filter(
-    (transaction) => transaction.type == "expense"
-  );
-  const totalIncomePercent =
-    (totalIncomeTransactions.length / totalTransaction) * 100;
-  const totalExpensePercent =
-    (totalExpenseTransactions.length / totalTransaction) * 100;
-
-  //total turnover
-  const totalTurnover = allTransaction.reduce(
-    (acc, transaction) => acc + transaction.amount,
-    0
-  );
-  const totalIncomeTurnover = allTransaction
-    .filter((transaction) => transaction.type === "income")
-    .reduce((acc, transaction) => acc + transaction.amount, 0);
-  const totalExpenseTurnover = allTransaction
-    .filter((transaction) => transaction.type === "expense")
-    .reduce((acc, transaction) => acc + transaction.amount, 0);
-
-  const totalIncomeTurnoverPercent =
-    (totalIncomeTurnover / totalTurnover) * 100;
-  const totalExpenseTurnoverPercent =
-    (totalExpenseTurnover / totalTurnover) * 100;
 
   return (
     <Box p={4}>
