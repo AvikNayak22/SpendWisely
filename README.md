@@ -1,6 +1,6 @@
 # SpendWisely
 
-SpendWisely is a full-stack financial management application that helps users track their expenses and incomes, analyze their spending habits, and manage their finances efficiently.
+SpendWisely is a full-stack expense-tracking web application that helps users track their expenses and incomes, analyze their spending habits, and manage their finances efficiently.
 
 ## Features
 
