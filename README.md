@@ -1,7 +1,6 @@
 # SpendWisely
 
-SpendWisely is a full-stack expense-tracking web application that helps users track their expenses and incomes, analyze their spending habits, and manage their finances efficiently.
-
+SpendWisely is a user-friendly expense-tracking platform that helps users manage their finances by tracking, categorizing, and analyzing their incomes and expenses effectively.
 ## Features
 
 - **User Authentication**: Easily register, login, and logout to securely access your account.
@@ -56,6 +55,17 @@ SpendWisely is a full-stack expense-tracking web application that helps users tr
    ```
    npm run server
    ```
+## API Endpoints
+### User Routes
+- **POST /api/v1/users/register:** Register a new user.
+- **POST /api/v1/users/login:** Login a user.
+- **POST /api/v1/users/logout:** Logout a user.
+### Transaction Routes
+- **POST /api/v1/transactions/add-transaction:** Add a new transaction.
+- **POST /api/v1/transactions/edit-transaction:** Edit an existing transaction.
+- **POST /api/v1/transactions/delete-transaction:** Delete a transaction.
+- **POST /api/v1/transactions/get-transaction:** Get all transactions based on filters.
+
 ## Usage
 - **Register:** Navigate to the registration page and create a new account.
 - **Login:** Use your credentials to log in.
@@ -65,4 +75,4 @@ SpendWisely is a full-stack expense-tracking web application that helps users tr
 - **Manage Transactions:** Edit or delete existing transactions as needed.
 
 ## Contributor
-- AvikNayak22
+- Avik Nayak (@AvikNayak22)
