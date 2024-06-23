@@ -1,6 +1,6 @@
 # SpendWisely
+SpendWisely is a web-based expense tracker featuring secure authentication, income & expense tracking, categorization, data filtering and visualization capabilities.
 
-SpendWisely is a user-friendly expense-tracking platform that helps users manage their finances by tracking, categorizing, and analyzing their incomes and expenses effectively.
 ## Features
 
 - **User Authentication**: Easily register, login, and logout to securely access your account.
