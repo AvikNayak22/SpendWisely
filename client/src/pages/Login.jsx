@@ -76,8 +76,11 @@ const Login = () => {
       display="flex"
       justifyContent="center"
       alignItems="center"
+      flexDirection={"column"}
     >
-      {isLoading && <Spinner thickness="4px" size="md" color="purple.500" />}
+      {isLoading && (
+        <Spinner thickness="4px" size="md" color="purple.500" mb={4} />
+      )}
       <Box width="350px" p={6} boxShadow="lg" bg="white" borderRadius="xl">
         <form onSubmit={formik.handleSubmit}>
           <VStack spacing={6} align="flex-start">
