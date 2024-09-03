@@ -10,7 +10,10 @@ import Analytics from "../components/Analytics";
 import Filters from "../components/Filters";
 import TableData from "../components/TableData";
 import TransactionModal from "../components/TransactionModal";
-import Pagination from "../components/Pagination";
+// import Pagination from "../components/Pagination";
+
+import ResponsivePagination from "react-responsive-pagination";
+import "react-responsive-pagination/themes/classic.css";
 
 import {
   Spinner,
@@ -112,11 +115,15 @@ const HomePage = () => {
                 handleDelete={handleDelete}
                 currentTransactions={currentTransactions}
               />
-              <Pagination
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                totalPages={totalPages}
-              />
+              <Box mt="4">
+                <ResponsivePagination
+                  previousLabel="Previous"
+                  nextLabel="Next"
+                  current={currentPage}
+                  total={totalPages}
+                  onPageChange={setCurrentPage}
+                />
+              </Box>
             </>
           ) : (
             <Analytics allTransaction={allTransaction} />
