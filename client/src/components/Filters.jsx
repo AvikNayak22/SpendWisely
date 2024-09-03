@@ -16,6 +16,7 @@ const Filters = ({
         <Select
           value={frequency}
           onChange={(e) => setFrequency(e.target.value)}
+          bg="white"
         >
           <option value="7" disabled hidden>
             Select Frequency
@@ -27,7 +28,11 @@ const Filters = ({
         </Select>
       </Box>
       <Box id="type">
-        <Select value={type} onChange={(e) => setType(e.target.value)}>
+        <Select
+          bg="white"
+          value={type}
+          onChange={(e) => setType(e.target.value)}
+        >
           <option value="all" disabled hidden>
             {" "}
             Select Type
@@ -42,6 +47,7 @@ const Filters = ({
         border="1px solid"
         borderColor="#CBD5E0"
         borderRadius={4}
+        bg="white"
       >
         <IconButton
           icon={<BsTable />}

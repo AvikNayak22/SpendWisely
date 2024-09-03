@@ -10,19 +10,11 @@ import Analytics from "../components/Analytics";
 import Filters from "../components/Filters";
 import TableData from "../components/TableData";
 import TransactionModal from "../components/TransactionModal";
-// import Pagination from "../components/Pagination";
 
 import ResponsivePagination from "react-responsive-pagination";
 import "react-responsive-pagination/themes/classic.css";
 
-import {
-  Spinner,
-  Box,
-  Button,
-  useToast,
-  Flex,
-  Divider,
-} from "@chakra-ui/react";
+import { Spinner, Box, Button, useToast, Flex } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 
 const HomePage = () => {
@@ -83,7 +75,11 @@ const HomePage = () => {
           <Flex
             w={{ base: "max-content", md: "auto" }}
             justifyContent="space-between"
-            pb={3}
+            p={4}
+            border="1px solid"
+            borderColor="gray.200"
+            borderRadius="md"
+            bg="gray.100"
           >
             <Filters
               frequency={frequency}
@@ -104,7 +100,6 @@ const HomePage = () => {
           </Flex>
         </Box>
 
-        <Divider />
         <Box mt="4">
           {viewData === "table" ? (
             <>

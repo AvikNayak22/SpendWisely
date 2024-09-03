@@ -30,40 +30,48 @@ const TableData = ({
   currentTransactions,
 }) => {
   return (
-    <Box overflowX={{ base: "auto", md: "visible" }}>
+    <Box
+      overflowX={{ base: "auto", md: "visible" }}
+      border="1px solid"
+      borderColor="gray.200"
+      borderRadius="md"
+      borderCollapse="collapse"
+    >
       <Table variant="simple" w={{ base: "max-content", md: "100%" }}>
-        <Thead>
+        <Thead bg="gray.100">
           <Tr>
             {columns.map((col) => (
-              <Th fontSize="0.9em" key={col.title}>
+              <Th fontSize="0.9em" key={col.title} textAlign="center">
                 {col.title}
               </Th>
             ))}
-            <Th fontSize="0.9em">Actions</Th>
+            <Th fontSize="0.9em" textAlign="center">
+              Actions
+            </Th>
           </Tr>
         </Thead>
         <Tbody>
           {currentTransactions.map((record) => (
-            <Tr key={record._id}>
-              <Td>{moment(record.date).format("YYYY-MM-DD")}</Td>
-              <Td>{record.amount}</Td>
-              <Td>
-                {" "}
+            <Tr key={record._id} _hover={{ bg: "gray.100" }}>
+              <Td textAlign="center">
+                {moment(record.date).format("YYYY-MM-DD")}
+              </Td>
+              <Td textAlign="center">{record.amount}</Td>
+              <Td textAlign="center">
                 <Badge
-                  ml="1"
                   fontSize="0.8em"
-                  px={2}
+                  px={3}
                   py={1}
                   colorScheme={record.type === "expense" ? "red" : "green"}
-                  borderRadius="5px"
+                  borderRadius="full"
                 >
                   {record.type}
                 </Badge>
               </Td>
-              <Td>{record.category}</Td>
-              <Td>{record.reference}</Td>
-              <Td>
-                <HStack spacing="12px">
+              <Td textAlign="center">{record.category}</Td>
+              <Td textAlign="center">{record.reference}</Td>
+              <Td textAlign="center">
+                <HStack spacing="12px" justify="center">
                   <IconButton
                     icon={<MdModeEdit />}
                     onClick={() => {
@@ -72,12 +80,20 @@ const TableData = ({
                     }}
                     colorScheme="blue"
                     color="white"
+                    size="md"
+                    _hover={{ bg: "blue.500" }}
+                    borderRadius="full"
+                    aria-label="Edit"
                   />
                   <IconButton
                     icon={<MdDelete />}
                     onClick={() => handleDelete(record)}
                     colorScheme="red"
                     color="white"
+                    size="md"
+                    _hover={{ bg: "red.500" }}
+                    borderRadius="full"
+                    aria-label="Delete"
                   />
                 </HStack>
               </Td>
