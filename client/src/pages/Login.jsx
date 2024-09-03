@@ -16,6 +16,7 @@ import {
   Spinner,
   useToast,
   Heading,
+  Text,
 } from "@chakra-ui/react";
 
 const Login = () => {
@@ -64,16 +65,30 @@ const Login = () => {
     if (validUser) {
       navigate("/");
     }
-  }, [navigate]);
+  }, [navigate, validUser]);
 
   return (
-    <Box className="login-page" p={5}>
-      {isLoading && <Spinner thickness="4px" size="md" color="black" />}
-      <Box width="400px" p="4">
+    <Box
+      className="login-page"
+      p={5}
+      bg="gray.50"
+      minH="100vh"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
+      {isLoading && <Spinner thickness="4px" size="md" color="purple.500" />}
+      <Box width="350px" p={6} boxShadow="lg" bg="white" borderRadius="xl">
         <form onSubmit={formik.handleSubmit}>
-          <VStack spacing={4} align="flex-center">
-            <Heading as="h4" size="md">
-              Login Form
+          <VStack spacing={6} align="flex-start">
+            <Heading
+              as="h4"
+              size="lg"
+              textAlign="center"
+              w="full"
+              color="purple.600"
+            >
+              Login
             </Heading>
             <FormControl
               id="email"
@@ -88,7 +103,9 @@ const Login = () => {
                 onChange={formik.handleChange}
               />
               {formik.errors.email && formik.touched.email ? (
-                <div>{formik.errors.email}</div>
+                <Text color="red.500" fontSize="sm">
+                  {formik.errors.email}
+                </Text>
               ) : null}
             </FormControl>
             <FormControl
@@ -104,14 +121,24 @@ const Login = () => {
                 onChange={formik.handleChange}
               />
               {formik.errors.password && formik.touched.password ? (
-                <div>{formik.errors.password}</div>
+                <Text color="red.500" fontSize="sm">
+                  {formik.errors.password}
+                </Text>
               ) : null}
             </FormControl>
-            <Button type="submit" colorScheme="blue" width="full">
+            <Button type="submit" colorScheme="purple" width="full">
               Login
             </Button>
-            <Box textAlign="center" width="100%" textColor="blue.500">
-              <Link to="/register">Not a user? Click Here to Register</Link>
+            <Box
+              display="flex"
+              justifyContent="center"
+              gap={1}
+              textAlign="center"
+              width="100%"
+              textColor="purple.500"
+            >
+              <Text textColor="black">Not a user? </Text>
+              <Link to="/register">Click Here to Register</Link>
             </Box>
           </VStack>
         </form>

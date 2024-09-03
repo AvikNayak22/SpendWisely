@@ -13,6 +13,7 @@ import {
   Heading,
   VStack,
   useToast,
+  Text,
 } from "@chakra-ui/react";
 import { useRegisterUserMutation } from "../redux/apiSlice";
 import { useSelector } from "react-redux";
@@ -63,16 +64,30 @@ const Register = () => {
     if (validUser) {
       navigate("/");
     }
-  }, [navigate]);
+  }, [navigate, validUser]);
 
   return (
-    <Box className="register-page" p={5}>
-      {isLoading && <Spinner thickness="4px" size="md" color="black" />}
-      <Box width="400px" p="4">
+    <Box
+      className="register-page"
+      p={5}
+      bg="gray.50"
+      minH="100vh"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
+      {isLoading && <Spinner thickness="4px" size="md" color="purple.500" />}
+      <Box width="400px" p={6} boxShadow="lg" bg="white" borderRadius="xl">
         <form onSubmit={formik.handleSubmit}>
-          <VStack spacing={4} align="flex-center">
-            <Heading as="h4" size="md">
-              Register Form
+          <VStack spacing={6} align="flex-start">
+            <Heading
+              as="h4"
+              size="lg"
+              textAlign="center"
+              w="full"
+              color="purple.600"
+            >
+              Register
             </Heading>
             <FormControl
               id="name"
@@ -86,7 +101,9 @@ const Register = () => {
                 onChange={formik.handleChange}
               />
               {formik.errors.name && formik.touched.name ? (
-                <div>{formik.errors.name}</div>
+                <Text color="red.500" fontSize="sm">
+                  {formik.errors.name}
+                </Text>
               ) : null}
             </FormControl>
             <FormControl
@@ -102,7 +119,9 @@ const Register = () => {
                 onChange={formik.handleChange}
               />
               {formik.errors.email && formik.touched.email ? (
-                <div>{formik.errors.email}</div>
+                <Text color="red.500" fontSize="sm">
+                  {formik.errors.email}
+                </Text>
               ) : null}
             </FormControl>
             <FormControl
@@ -118,14 +137,24 @@ const Register = () => {
                 onChange={formik.handleChange}
               />
               {formik.errors.password && formik.touched.password ? (
-                <div>{formik.errors.password}</div>
+                <Text color="red.500" fontSize="sm">
+                  {formik.errors.password}
+                </Text>
               ) : null}
             </FormControl>
-            <Button type="submit" colorScheme="blue" width="full">
+            <Button type="submit" colorScheme="purple" width="full">
               Register
             </Button>
-            <Box textAlign="center" width="100%" textColor="blue.500">
-              <Link to="/login">Already Registered? Click Here to login</Link>
+            <Box
+              display="flex"
+              justifyContent="center"
+              gap={1}
+              textAlign="center"
+              width="100%"
+              textColor="purple.500"
+            >
+              <Text textColor="black">Already Registered?</Text>
+              <Link to="/login"> Click Here to login</Link>
             </Box>
           </VStack>
         </form>

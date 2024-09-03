@@ -5,29 +5,3 @@
   box-sizing: border-box;
   font-family: "Chivo", sans-serif;
 }
-
-.register-page,
-.login-page {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  background-color: #eceff6;
-  height: 100vh;
-}
-
-.register-page Form,
-.login-page Form {
-  background-color: #ffffff;
-  padding: 30px 20px;
-  width: auto;
-  height: auto;
-  margin-inline: 8px;
-  border-radius: 15px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-}
-
-.register-page Form Input,
-.login-page Form Input {
-  background-color: #fafafa;
-}
