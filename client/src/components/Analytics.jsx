@@ -62,7 +62,7 @@ const Analytics = ({ allTransaction }) => {
 
   return (
     <Box p={4}>
-      <Text fontSize="2xl" mb={8} fontWeight="700">
+      <Text fontSize="2xl" mb={8} fontWeight="700" textAlign="center">
         Website Analytics
       </Text>
       <Flex wrap="wrap" justifyContent="space-between">
