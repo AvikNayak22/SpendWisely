@@ -57,11 +57,10 @@ const Header = () => {
   return (
     <Box bg={bg} color={color} px={4}>
       <Flex h={20} alignItems="center" justifyContent="space-between">
-        {/* Logo and Brand */}
         <RouterLink to="/">
           <Flex alignItems="center">
             <Icon as={FaWallet} mr={2} boxSize={6} />
-            <Heading as="h1" size="lg" fontFamily="Karla">
+            <Heading as="h1" size="lg">
               SpendWisely
             </Heading>
           </Flex>
