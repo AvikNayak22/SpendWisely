@@ -35,7 +35,6 @@ const TableData = ({
       border="1px solid"
       borderColor="gray.200"
       borderRadius="md"
-      borderCollapse="collapse"
     >
       <Table variant="simple" w={{ base: "max-content", md: "100%" }}>
         <Thead bg="gray.100">
