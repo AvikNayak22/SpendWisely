@@ -26,32 +26,42 @@ import {
 
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaWallet } from "react-icons/fa6";
-import { useLogoutUserMutation } from "../../redux/apiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setValidUser } from "../../redux/authSlice";
+import { useLogoutUserMutation } from "../../redux/apiSlice";
 
 const Header = () => {
   const navigate = useNavigate();
+  const [logoutUser] = useLogoutUserMutation();
   const toast = useToast();
   const dispatch = useDispatch();
   const validUser = useSelector((state) => state.authSlice.validUser);
   const bg = useColorModeValue("purple.500", "purple.900");
   const color = useColorModeValue("white", "gray.100");
   const { isOpen, onClose, onToggle } = useDisclosure();
-  const [logoutUser] = useLogoutUserMutation();
   const buttonSize = useBreakpointValue({ base: "sm", md: "md" });
 
   const logoutHandler = async () => {
-    await logoutUser().unwrap();
-    toast({
-      title: "Logout Successful",
-      description: "You have been logged out successfully.",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-    });
-    dispatch(setValidUser(null));
-    navigate("/login");
+    try {
+      logoutUser().unwrap();
+      toast({
+        title: "Logout Successful",
+        description: "You have been logged out successfully.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      dispatch(setValidUser(null));
+      navigate("/login");
+    } catch (error) {
+      toast({
+        title: "Logout Failed",
+        description: "An error occurred while logging out.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
