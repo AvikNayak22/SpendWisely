@@ -10,7 +10,11 @@ SpendWisely is a web-based expense tracker featuring secure authentication, inco
 - **Responsive Design**: Users can access the application across various devices (desktop, tablet, or smartphone).
 
 ## Demo
-[video (4).webm](https://github.com/AvikNayak22/SpendWisely/assets/110925067/b0103e40-5296-4965-a444-87b21d83657f)
+[demo](https://github.com/user-attachments/assets/c38ea1c4-721d-41de-a7ea-386a3ced3e5d)
+
+
+
+
 
 
 ## Technologies Used
